@@ -37,7 +37,7 @@ class Grid:
         for index in mine_indices:
             r = index // self.cols
             c = index % self.cols
-            grid[r][c].mine = self.mines
+            grid[r][c].mine = True
 
         # Change non mine squares numbers
         for r in range(self.rows):

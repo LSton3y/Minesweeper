@@ -1,5 +1,4 @@
 import pygame
-from math import ceil
 
 import src.assets
 import src.constants
@@ -14,7 +13,7 @@ class Game:
         self.columns = 16
         self.mines = 40
 
-        self._start_click_size = 2 #ceil(self.rows / 5)
+        self._start_click_size = 2
 
         # Class references
         self.surface = surface
@@ -35,10 +34,10 @@ class Game:
         col = mouse_x // self._tile_size
 
         # Clamp values
-        if row > self.grid.rows: row = self.grid.rows
+        if row >= self.grid.rows: row = self.grid.rows - 1
         elif row < 0: row = 0
 
-        if col > self.grid.cols: col = self.grid.cols
+        if col >= self.grid.cols: col = self.grid.cols - 1
         elif col < 0: col = 0
 
         return row, col
@@ -103,8 +102,7 @@ class Game:
 
         for cell in self.grid.get_cells():
             # Checks if cell is not a mine and hidden, if so, game isn't won
-            if not cell.mine and (cell.state == src.constants.CellState.HIDDEN \
-                or cell.state == src.constants.CellState.FLAGGED):
+            if not cell.mine and cell.state == src.constants.CellState.HIDDEN:
                 game_won = False
                 break
         

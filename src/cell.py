@@ -18,7 +18,7 @@ class Cell:
     def reveal(self):
         if self.mine:
             self.state = src.constants.CellState.MINE
-        else:
+        elif self.state != src.constants.CellState.FLAGGED:
             self.state = src.constants.CellState.REVEALED
         
     

@@ -12,3 +12,7 @@ class CellState(Enum):
     FLAGGED = auto()
     REVEALED = auto()
     MINE = auto()
+
+
+# Images path
+IMAGES_PATH = "assets/images"

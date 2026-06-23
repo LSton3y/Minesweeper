@@ -1,6 +1,7 @@
 import random
 from itertools import product
 from src.cell import Cell
+import src.constants
 
 
 class Grid:
@@ -60,18 +61,24 @@ class Grid:
         if checked is None:
             checked = set()
 
+        cell = self.grid[row][col]
+
+        # Skip already revealed or flagged cells
+        if cell.state != src.constants.CellState.HIDDEN:
+            return 0
+
         # Reveals cells
-        if self.grid[row][col].mine:
+        if cell.mine:
             if reveal_mines:
-                self.grid[row][col].reveal()
+                cell.reveal()
         else:
-            self.grid[row][col].reveal()
+            cell.reveal()
 
         # If cell is empty, reveal all squares around it
-        if not self.grid[row][col].mine and self.grid[row][col].adjacent_mines == 0:
+        if not cell.mine and cell.adjacent_mines == 0:
             for r, c in self.neighbours(row, col):
                 if (r, c) not in checked:
                     checked.add((r, c))
                     self.reveal_square(r, c, checked)
         
-        return self.grid[row][col].mine
+        return cell.mine

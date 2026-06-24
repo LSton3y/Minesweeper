@@ -82,3 +82,15 @@ class Grid:
                     self.reveal_square(r, c, checked)
         
         return cell.mine
+
+
+    def reveal_mines(self):
+        # Reveals all the non flagged mines in the grid
+        [cell.reveal_mine() if cell.mine and cell.state == src.constants.CellState.HIDDEN
+        else None for row in self.grid for cell in row]
+    
+
+    def reveal_not_mines(self):
+        # Reveals all the cells that aren't mines but have been flagged
+        [cell.reveal_not_mine() if not cell.mine and cell.state == src.constants.CellState.FLAGGED
+        else None for row in self.grid for cell in row]

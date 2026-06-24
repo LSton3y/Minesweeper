@@ -13,7 +13,7 @@ class Game:
         self.columns = 16
         self.mines = 40
 
-        self._start_click_size = 2
+        self._start_click_size = 1
 
         # Class references
         self.surface = surface
@@ -54,6 +54,10 @@ class Game:
                 return self._images["EXPLODED"]
             case src.constants.CellState.REVEALED:
                 return self._images["NUMBERS"][cell.adjacent_mines]
+            case src.constants.CellState.REVEALED_MINE:
+                return self._images["REVEALED_MINE"]
+            case src.constants.CellState.CELL_NOT_MINE:
+                return self._images["CELL_NOT_MINE"]
 
     
 
@@ -61,6 +65,32 @@ class Game:
         # Resets game
         self._started = False
         self.grid.grid = self.grid.generate_grid()
+    
+
+    def _win_game(self):
+        pass
+
+
+    def _lose_game(self):
+        self._playing = False
+
+        # Reveal cells
+        self.grid.reveal_mines()
+        self.grid.reveal_not_mines()
+
+    
+    def check_win(self):
+        game_won = True
+
+        for cell in self.grid.get_cells():
+            # Checks if cell is not a mine and hidden, if so, game isn't won
+            if not cell.mine and cell.state == src.constants.CellState.HIDDEN:
+                game_won = False
+                break
+        
+        if game_won:
+            self._win_game()
+
 
 
     def draw_screen(self):
@@ -79,7 +109,7 @@ class Game:
         row, col = self._get_cell_from_mouse(mouse_x, mouse_y)
         
         if mouse_button == 1:
-            # If first click, clear squares in 4x4 grid around
+            # If first click, clear squares based on _start_click_size
             if not self._started:
                 self.grid.reveal_square(row, col, reveal_mines=False) # Reveals clicked square if not mine
 
@@ -91,20 +121,7 @@ class Game:
             else:
                 # Reveals clicked square regardless if it is a mine
                 if self.grid.reveal_square(row, col):
-                    self._playing = False # Stop playing if mine
+                    self._lose_game() # Lose game if it is a mine
 
         elif mouse_button == 3:
             self.grid.grid[row][col].flag()
-    
-
-    def check_win(self):
-        game_won = True
-
-        for cell in self.grid.get_cells():
-            # Checks if cell is not a mine and hidden, if so, game isn't won
-            if not cell.mine and cell.state == src.constants.CellState.HIDDEN:
-                game_won = False
-                break
-        
-        if game_won:
-            self._playing = False

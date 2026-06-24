@@ -20,6 +20,14 @@ class Cell:
             self.state = src.constants.CellState.MINE
         else:
             self.state = src.constants.CellState.REVEALED
+    
+
+    def reveal_mine(self):
+        self.state = src.constants.CellState.REVEALED_MINE
+    
+
+    def reveal_not_mine(self):
+        self.state = src.constants.CellState.CELL_NOT_MINE
         
     
 

@@ -2,6 +2,7 @@ import pygame
 
 import src.game.game
 import src.constants
+import src.ui.ui_manager
 
 class Main:
 
@@ -23,17 +24,26 @@ class Main:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.ui.handle_click(self.game, *event.pos)
+            
+            if event.type == pygame.MOUSEBUTTONUP:
                 self.game.handle_click(event.button, *event.pos)
+
+                if event.button == 1:
+                    self.ui.handle_click_release()
+                
     
 
     # Handles draw functions
     def _draw(self):
-        self.surface.fill((255, 255, 255))
+        self.surface.fill(src.constants.GREY)
 
         self.game.draw_screen(self.surface)
-        self.ui.draw_ui(self.surface)
-        
+        self.ui.draw_ui(self.surface, self.game.state)
+
         pygame.display.flip()
 
 

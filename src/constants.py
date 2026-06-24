@@ -27,3 +27,8 @@ class GameState(Enum):
 # Images path
 CELL_IMAGES_PATH = "assets/images/cells"
 FACE_IMAGES_PATH = "assets/images/faces"
+
+
+# Colors
+GREY = (144, 164, 174)
+LIGHTGREY = (213, 224, 230)

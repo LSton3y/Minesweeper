@@ -15,7 +15,8 @@ class Main:
         pygame.display.set_caption("Minesweeper")
 
         # Class initialisation
-        self.game = src.game.game.Game(self.surface)
+        self.game = src.game.game.Game()
+        self.ui = src.ui.ui_manager.UIManager()
 
     # Handles input
     def _handle_events(self):
@@ -29,7 +30,10 @@ class Main:
     # Handles draw functions
     def _draw(self):
         self.surface.fill((255, 255, 255))
-        self.game.draw_screen()
+
+        self.game.draw_screen(self.surface)
+        self.ui.draw_ui(self.surface)
+        
         pygame.display.flip()
 
 

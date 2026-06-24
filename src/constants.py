@@ -3,6 +3,7 @@ from enum import Enum, auto
 
 # Constants
 WIDTH, HEIGHT = 608, 700
+TOP_BAR_HEIGHT = 92
 FPS = 60
 
 
@@ -16,5 +17,13 @@ class CellState(Enum):
     CELL_NOT_MINE = auto()
 
 
+# Game states
+class GameState(Enum):
+    PLAYING = auto()
+    WON = auto()
+    LOST = auto()
+
+
 # Images path
 CELL_IMAGES_PATH = "assets/images/cells"
+FACE_IMAGES_PATH = "assets/images/faces"

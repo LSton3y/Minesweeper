@@ -1,9 +1,9 @@
 import pygame
 
-import src.game
+import src.game.game
 import src.constants
 
-class Main():
+class Main:
 
     def __init__(self):
         # Pygame initialisation
@@ -15,7 +15,7 @@ class Main():
         pygame.display.set_caption("Minesweeper")
 
         # Class initialisation
-        self.game = src.game.Game(self.surface)
+        self.game = src.game.game.Game(self.surface)
 
     # Handles input
     def _handle_events(self):

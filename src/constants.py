@@ -2,7 +2,7 @@ import os
 from enum import Enum, auto
 
 # Constants
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 608, 700
 FPS = 60
 
 
@@ -17,4 +17,4 @@ class CellState(Enum):
 
 
 # Images path
-IMAGES_PATH = "assets/images"
+CELL_IMAGES_PATH = "assets/images/cells"

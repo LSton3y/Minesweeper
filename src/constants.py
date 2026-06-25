@@ -38,4 +38,4 @@ LIGHTGREY = (213, 224, 230)
 
 
 # Fonts
-SEVEN_SEG_FONT = os.path.join(FONTS_PATH, "seven_segment.ttf")
+SEVEN_SEGMENT_FONT = os.path.join(FONTS_PATH, "seven_segment.ttf")

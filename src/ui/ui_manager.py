@@ -1,12 +1,32 @@
 import pygame
+
 import src.ui.reset_button
+import src.ui.label
+
 import src.constants
 import src.utils.asset_manager
+
 
 class UIManager:
     
     def __init__(self):
+        # Class references
         self.reset_button = src.ui.reset_button.ResetButton()
+
+        self.flags_left_text = src.ui.label.Label(
+            "0", 
+            (110, 10), 
+            pygame.font.Font(src.constants.SEVEN_SEGMENT_FONT, 70),
+            (255, 0, 0)
+        )
+
+        self.timer_text = src.ui.label.Label(
+            "0", 
+            (430, 10), 
+            pygame.font.Font(src.constants.SEVEN_SEGMENT_FONT, 70),
+            (255, 0, 0)
+        )
+
         self.panel_rect = pygame.Rect(0, 0, src.constants.WIDTH, src.constants.TOP_BAR_HEIGHT)
 
         self.face_images = src.utils.asset_manager.load_faces((
@@ -32,14 +52,23 @@ class UIManager:
                 return self.face_images["DEAD"]
 
 
-    def draw_ui(self, surface: pygame.Surface, game_state: src.constants.GameState):
+    def draw_ui(self, surface: pygame.Surface, game):
         # Draw panel
         pygame.draw.rect(surface, src.constants.GREY, self.panel_rect)
         # Draw the outline 
         pygame.draw.rect(surface, src.constants.LIGHTGREY, self.panel_rect, width=3)
 
         # Draws reset button
-        surface.blit(self._get_button_image_from_game_state(game_state), self.reset_button.rect)
+        surface.blit(self._get_button_image_from_game_state(game.state), self.reset_button.rect)
+
+        # Draw the amount of flags left
+        self.flags_left_text.text = str(game.grid.flags)
+        self.flags_left_text.draw(surface)
+
+        # Draw the timer
+        self.timer_text.text = str(game.game_timer // src.constants.FPS)
+        self.timer_text.draw(surface)
+
     
 
     def handle_click(self, game, mouse_x, mouse_y):

@@ -8,6 +8,7 @@ class Grid:
     def __init__(self, rows, cols, mines):
         self.rows, self.cols = rows, cols
         self.mines = mines
+        self.flags = mines
         self.grid = self.generate_grid()
 
 

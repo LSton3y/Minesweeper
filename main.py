@@ -42,7 +42,7 @@ class Main:
         self.surface.fill(src.constants.GREY)
 
         self.game.draw_screen(self.surface)
-        self.ui.draw_ui(self.surface, self.game.state)
+        self.ui.draw_ui(self.surface, self.game)
 
         pygame.display.flip()
 
@@ -54,6 +54,8 @@ class Main:
             self.game.check_win()
             self._handle_events()
             self._draw()
+
+            self.game.increment_timer()
             self.clock.tick(src.constants.FPS)
         
         pygame.quit()

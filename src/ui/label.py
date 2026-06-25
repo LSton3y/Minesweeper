@@ -1,6 +1,6 @@
 class Label:
 
-    def __init__(self, text, pos, font, color=(255, 255, 255)):
+    def __init__(self, text: str, pos: tuple, font, color=(255, 255, 255)):
         self.text = text
         self.pos = pos
         self.font = font

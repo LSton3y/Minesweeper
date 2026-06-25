@@ -14,6 +14,7 @@ class Game:
         self.mines = 40
 
         self._start_click_size = 1
+        self.game_timer = 0
 
         # Class references
         self.grid = src.game.grid.Grid(self.rows, self.columns, self.mines)
@@ -66,6 +67,8 @@ class Game:
         self.state = src.constants.GameState.PLAYING
         self._started = False
         self.grid.grid = self.grid.generate_grid()
+        self.grid.flags = self.grid.mines
+        self.game_timer = 0
     
 
     def _win_game(self):
@@ -130,3 +133,14 @@ class Game:
 
         elif mouse_button == 3:
             self.grid.grid[row][col].flag()
+
+            # Change amount of flags left based on flag action
+            if self.grid.grid[row][col].state == src.constants.CellState.FLAGGED:
+                self.grid.flags -= 1
+            else:
+                self.grid.flags += 1
+    
+
+    def increment_timer(self):
+        if self.state == src.constants.GameState.PLAYING and self._started:
+            self.game_timer += 1

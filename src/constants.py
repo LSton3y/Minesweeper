@@ -28,7 +28,14 @@ class GameState(Enum):
 CELL_IMAGES_PATH = "assets/images/cells"
 FACE_IMAGES_PATH = "assets/images/faces"
 
+# Fonts path
+FONTS_PATH = "assets/fonts"
+
 
 # Colors
 GREY = (144, 164, 174)
 LIGHTGREY = (213, 224, 230)
+
+
+# Fonts
+SEVEN_SEG_FONT = os.path.join(FONTS_PATH, "seven_segment.ttf")
